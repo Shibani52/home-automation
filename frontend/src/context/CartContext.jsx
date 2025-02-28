@@ -1,31 +1,36 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  // Save cart to localStorage whenever it updates
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product) => {
     setCart((prevCart) => {
-      console.log("Previous cart:", prevCart); // Debugging previous cart state
-      console.log("Adding product:", product); // Debugging new product being added
+      console.log("Adding product:", product);
 
-      const existingProduct = prevCart.find((item) => item.id === product.id);
+      const existingProductIndex = prevCart.findIndex((item) => String(item.id) === String(product.id));
 
-      if (existingProduct) {
-        console.log("Product already exists, increasing quantity.");
-        return prevCart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      if (existingProductIndex !== -1) {
+        return prevCart.map((item, index) =>
+          index === existingProductIndex ? { ...item, quantity: item.quantity + 1 } : item
         );
       } else {
-        console.log("New product, adding to cart.");
-        return [...prevCart, { ...product, quantity: 1 }];
+        return [...prevCart, { ...product, id: String(product.id), quantity: 1 }];
       }
     });
   };
 
   const removeFromCart = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+    setCart((prevCart) => prevCart.filter((item) => String(item.id) !== String(id)));
   };
 
   return (

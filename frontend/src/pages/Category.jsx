@@ -1,18 +1,19 @@
-// src/pages/Category.jsx
-import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Category() {
   const { categoryName } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Only fetch products if a category is provided.
     if (!categoryName) return;
 
     setLoading(true);
+    setError(null);
+
     axios
       .get(`http://localhost:5000/api/products?category=${categoryName}`)
       .then((response) => {
@@ -20,93 +21,72 @@ function Category() {
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
+        setError("Failed to load products. Please try again.");
         setLoading(false);
       });
   }, [categoryName]);
 
-  const containerStyle = {
-    padding: '2rem',
-    fontFamily: 'Arial, sans-serif',
-    color: '#333',
-  };
-
-  const headerStyle = {
-    marginBottom: '1.5rem',
-    textTransform: 'capitalize',
-  };
-
-  const gridStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-    gap: '1rem',
-    listStyle: 'none',
-    padding: 0,
-  };
-
-  const productCardStyle = {
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    padding: '1rem',
-    textAlign: 'center',
-    backgroundColor: '#f9f9f9',
-  };
-
-  const productImageStyle = {
-    maxWidth: '100%',
-    height: 'auto',
-    marginBottom: '0.5rem',
-  };
-
-  // If no category is specified, show an "All Categories" page.
   if (!categoryName) {
     return (
-      <div style={containerStyle}>
-        <h1 style={headerStyle}>All Categories</h1>
-        <p>Select a category to view products:</p>
-        <ul>
+      <div className="p-6 font-sans text-gray-800">
+        <h1 className="text-3xl font-bold mb-4">All Categories</h1>
+        <p className="mb-3">Select a category to view products:</p>
+        <ul className="list-disc ml-5">
           <li>
-            <Link to="/category/smart-light-bulbs">Smart Light Bulbs</Link>
+            <Link
+              to="/category/smart-light-bulbs"
+              className="text-blue-600 hover:underline"
+            >
+              Smart Light Bulbs
+            </Link>
           </li>
           <li>
-            <Link to="/category/smart-thermostats">Smart Thermostats</Link>
+            <Link
+              to="/category/smart-thermostats"
+              className="text-blue-600 hover:underline"
+            >
+              Smart Thermostats
+            </Link>
           </li>
-          {/* Add more category links as needed */}
         </ul>
       </div>
     );
   }
 
   return (
-    <div style={containerStyle}>
-      <h1 style={headerStyle}>{categoryName.replace('-', ' ')}</h1>
-      {loading ? (
-        <p>Loading products...</p>
-      ) : products.length ? (
-        <ul style={gridStyle}>
-          {products.map((product) => (
-            <li key={product._id} style={productCardStyle}>
+    <div className="p-6 font-sans text-gray-800">
+      <h1 className="text-3xl font-bold mb-4 capitalize">{categoryName.replace("-", " ")}</h1>
+
+      {loading && <p className="text-blue-600">Loading products...</p>}
+      {error && <p className="text-red-600">{error}</p>}
+
+      {!loading && !error && (
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6">
+          {products.length > 0 ? (
+            products.map((product) => (
               <Link
+                key={product._id}
                 to={`/product/${product._id}`}
-                style={{ textDecoration: 'none', color: '#007bff' }}
+                className="block border rounded-lg shadow-lg hover:shadow-xl transition p-4 bg-white"
               >
-                <h2>{product.name}</h2>
                 {product.image && (
                   <img
                     src={product.image}
                     alt={product.name}
-                    style={productImageStyle}
+                    className="w-full h-40 object-cover rounded-md mb-3"
                   />
                 )}
+                <h2 className="text-xl font-semibold text-gray-900">{product.name}</h2>
+                <p className="text-gray-700 mt-2">
+                  <strong>Price:</strong> ${product.price}
+                </p>
               </Link>
-              <p>
-                <strong>Price:</strong> ${product.price}
-              </p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No products available in this category.</p>
+            ))
+          ) : (
+            <p className="text-gray-600">No products available in this category.</p>
+          )}
+        </div>
       )}
     </div>
   );

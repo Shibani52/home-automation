@@ -1,59 +1,104 @@
-// src/components/Header.jsx
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { FaShoppingCart } from "react-icons/fa";
 
 function Header() {
-  const headerStyle = {
-    backgroundColor: '#ffffff',
-    boxShadow: '0 2px 4px rgba(7, 7, 7, 0.1)',
-    padding: '1rem 2rem',
-  };
+  const [isOpen, setIsOpen] = useState(false);
 
-  const containerStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-  };
-
-  const logoStyle = {
-    fontSize: '1.8rem',
-    fontWeight: 'bold',
-    color: '#333',
-    textDecoration: 'none',
-  };
-
-  const navStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: '1rem',
-  };
-
-  const linkStyle = {
-    color: '#333',
-    textDecoration: 'none',
-    fontSize: '1rem',
-    transition: 'color 0.3s ease',
+  // Toggle the mobile menu
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
-    <header style={headerStyle}>
-      <div style={containerStyle}>
-        <div>
-          <Link to="/" style={logoStyle}>
-            Home Automation Store
-          </Link>
+    <header className="bg-gradient-to-r from-[rgba(128,0,128,0.7)] via-[rgba(255,105,180,0.7)] to-[rgba(255,165,0,0.7)] text-white shadow-md py-4 fixed w-full top-0 z-50">
+  <div className="container mx-auto px-6 flex items-center justify-between">
+
+
+  
+        {/* Logo on the left */}
+        <Link
+          to="/"
+          className="text-2xl font-bold no-underline hover:no-underline flex items-center space-x-3 whitespace-nowrap mr-10"
+        >
+          Home Automation Store
+        </Link>
+
+        {/* Desktop Nav + Cart in the center/right (hidden on mobile) */}
+        <div className="hidden md:flex items-center space-x-8">
+          {/* Nav Items in the center */}
+          <nav className="flex space-x-6">
+            {["Home", "Category", "About", "Contact", "Policies", "Payment"].map(
+              (item) => (
+                <NavLink
+                  key={item}
+                  to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                  className={({ isActive }) =>
+                    `px-4 py-2 rounded-lg no-underline hover:no-underline transition-all duration-200 ${
+                      isActive
+                        ? "bg-yellow-400 text-black font-bold shadow-lg"
+                        : "text-white hover:bg-gray-900"
+                    }`
+                  }
+                >
+                  {item}
+                </NavLink>
+              )
+            )}
+          </nav>
+
+          {/* Cart Link on the far right */}
+          <NavLink
+            to="/cart"
+            className={({ isActive }) =>
+              `px-4 py-2 rounded-lg flex items-center no-underline hover:no-underline transition-all duration-200 ${
+                isActive
+                  ? "bg-yellow-400 text-black font-bold shadow-lg"
+                  : "text-white hover:bg-gray-900"
+              }`
+            }
+          >
+            <FaShoppingCart className="mr-2" />
+            Cart
+          </NavLink>
         </div>
-        <nav style={navStyle}>
-          <Link to="/Home" style={linkStyle}>Home</Link>
-          <Link to="/category" style={linkStyle}>Category</Link>
-          <Link to="/about" style={linkStyle}>About</Link>
-          <Link to="/contact" style={linkStyle}>Contact</Link>
-          <Link to="/policies" style={linkStyle}>Policies</Link>
-          <Link to="/payment" style={linkStyle}>Payment</Link>
-          <Link to="/cart" style={linkStyle}>Cart</Link>
-        </nav>
+
+        {/* Mobile Menu Button (shown on smaller screens) */}
+        <button
+          className="md:hidden text-3xl hover:opacity-80"
+          onClick={toggleMenu}
+        >
+          ☰
+        </button>
       </div>
+
+      {/* Mobile Navigation (slide-down menu) */}
+      {isOpen && (
+        <nav className="md:hidden bg-gray-900 text-white shadow-md py-4 w-full transition-all duration-300">
+          <ul className="flex flex-col items-center space-y-3">
+            {["Home", "Category", "About", "Contact", "Policies", "Payment", "Cart"].map(
+              (item) => (
+                <li key={item}>
+                  <NavLink
+                    to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                    className="px-4 py-2 rounded-lg no-underline hover:no-underline transition-all duration-200 hover:bg-gray-800"
+                    onClick={toggleMenu}
+                  >
+                    {item === "Cart" ? (
+                      <span className="flex items-center">
+                        <FaShoppingCart className="mr-1" />
+                        Cart
+                      </span>
+                    ) : (
+                      item
+                    )}
+                  </NavLink>
+                </li>
+              )
+            )}
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }

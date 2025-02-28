@@ -1,126 +1,101 @@
-// src/pages/Home.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaStar } from "react-icons/fa";
 
 function Home() {
   return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <h1>Welcome to Our Home Automation Store</h1>
-        <p style={styles.subTitle}>
-          Discover smart solutions for your home and transform your everyday living.
-        </p>
-        <Link to="/products" style={styles.browseButton}>
-          Browse All Products
-        </Link>
-      </header>
+    // Full-width background wrapper
+    <div
+      className="relative w-full min-h-screen bg-cover bg-center"
+      style={{
+        backgroundImage: "url('https://img.freepik.com/premium-photo/home-automation-system-with-voiceactivated-features-smart-lighting-created-with-generative-ai_124507-184907.jpg?ga=GA1.1.136295044.1740081924&semt=ais_hybrid')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Content container with padding */}
+      <div className="px-6 py-12 text-center text-gray-900 min-h-screen">
 
-      <section style={styles.section}>
-        <h2>Featured Categories</h2>
-        <nav style={styles.nav}>
-          <Link to="/category/smart-light-bulbs" style={styles.navLink}>
-            Smart Light Bulbs
+        {/* Header Section */}
+        <header className="mb-10">
+          <h1 className="text-4xl font-extrabold text-white drop-shadow-lg">
+            Welcome to Our Home Automation Store
+          </h1>
+          <p className="mt-3 text-lg text-gray-200">
+            Discover smart solutions for your home and transform your everyday living.
+          </p>
+          <Link 
+            to="/products" 
+            className="mt-6 inline-block px-8 py-3 text-lg font-semibold text-white bg-yellow-400 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:bg-yellow-500"
+          >
+            Browse All Products 🚀
           </Link>
-          <Link to="/category/smart-plugs" style={styles.navLink}>
-            Smart Plugs
-          </Link>
-          <Link to="/category/home-security-cameras" style={styles.navLink}>
-            Security Cameras
-          </Link>
-        </nav>
-      </section>
+        </header>
 
-      <section style={styles.section}>
-        <h2>Why Choose Us?</h2>
-        <div style={styles.features}>
-          <div style={styles.featureBox}>
-            <h3>Quality Products</h3>
-            <p>
-              Our products are sourced from trusted manufacturers, ensuring the best quality and reliability.
-            </p>
-          </div>
-          <div style={styles.featureBox}>
-            <h3>Competitive Prices</h3>
-            <p>
-              Enjoy the best prices without compromising on quality—get the best value for your money.
-            </p>
-          </div>
-          <div style={styles.featureBox}>
-            <h3>Excellent Support</h3>
-            <p>
-              Our dedicated support team is here to help you with any queries or issues you may have.
-            </p>
-          </div>
-        </div>
-      </section>
+        {/* Featured Categories Section */}
+        <section className="mb-10">
+          <h2 className="text-3xl font-bold text-white">🔥 Featured Categories</h2>
+          <nav className="flex flex-wrap justify-center gap-6 mt-6">
+            <Link 
+              to="/category/smart-light-bulbs" 
+              className="px-6 py-3 text-lg font-semibold text-white bg-blue-500 rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 hover:bg-blue-600"
+            >
+              💡 Smart Light Bulbs
+            </Link>
+            <Link 
+              to="/category/smart-plugs" 
+              className="px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 hover:bg-green-600"
+            >
+              🔌 Smart Plugs
+            </Link>
+            <Link 
+              to="/category/home-security-cameras" 
+              className="px-6 py-3 text-lg font-semibold text-white bg-red-500 rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 hover:bg-red-600"
+            >
+              📹 Security Cameras
+            </Link>
+          </nav>
+        </section>
 
-      <footer style={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} Home Automation Store. All rights reserved.</p>
-      </footer>
+        {/* Why Choose Us Section */}
+        <section className="mb-10">
+      <div className="relative text-center py-6">
+        {/* Icon and Text */}
+        <h2 className="inline-flex items-center text-3xl font-bold text-white relative z-10">
+          <FaStar className="mr-2 text-yellow-400 text-4xl" />
+          Why Choose Us?
+        </h2>
+
+        {/* Semi-transparent background */}
+        <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
+      </div>
+
+          <div className="flex flex-wrap justify-center gap-6 mt-6">
+            <div className="w-80 border border-white bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <h3 className="text-xl font-semibold text-white">✅ Quality Products</h3>
+              <p className="text-gray-200 mt-2">
+                Our products are sourced from trusted manufacturers, ensuring top-notch quality and reliability.
+              </p>
+            </div>
+            <div className="w-80 border border-white bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <h3 className="text-xl font-semibold text-white">💰 Competitive Prices</h3>
+              <p className="text-gray-200 mt-2">
+                Get the best deals without compromising on quality—value for your money!
+              </p>
+            </div>
+            <div className="w-80 border border-white bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <h3 className="text-xl font-semibold text-white">🎧 Excellent Support</h3>
+              <p className="text-gray-200 mt-2">
+                Our dedicated support team is always ready to assist you.
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div> 
     </div>
   );
 }
 
-const styles = {
-  container: {
-    padding: '2rem',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-    color: '#333',
-  },
-  header: {
-    marginBottom: '2rem',
-  },
-  subTitle: {
-    fontSize: '1.2rem',
-    color: '#555',
-  },
-  browseButton: {
-    display: 'inline-block',
-    marginTop: '1rem',
-    padding: '0.5rem 1.5rem',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    borderRadius: '5px',
-    textDecoration: 'none',
-  },
-  section: {
-    marginBottom: '2rem',
-  },
-  nav: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '1rem',
-    flexWrap: 'wrap',
-    marginTop: '1rem',
-  },
-  navLink: {
-    padding: '0.5rem 1rem',
-    backgroundColor: '#28a745',
-    color: '#fff',
-    textDecoration: 'none',
-    borderRadius: '5px',
-  },
-  features: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: '2rem',
-    marginTop: '1rem',
-  },
-  featureBox: {
-    flex: '1 1 250px',
-    border: '1px solid #ddd',
-    padding: '1rem',
-    borderRadius: '5px',
-    textAlign: 'left',
-  },
-  footer: {
-    marginTop: '2rem',
-    padding: '1rem',
-    backgroundColor: '#f8f8f8',
-  },
-};
-
 export default Home;
-
