@@ -8,51 +8,14 @@ import {
   FaLock,
   FaLightbulb,
 } from "react-icons/fa";
-import ParticlesBackground from "../components/ParticlesBackground";
-
+import ParticlesBackground from "../components/ParticlesBackground"; // Updated file name
 import "tailwindcss/tailwind.css";
 
 function Home() {
   return (
-    <div className="relative w-full min-h-screen text-white overflow-hidden">
-      {/* Particle Background */}
-      <ParticlesBackground />
-
-      {/* Flowing Lines (SVG Animation) */}
-      <svg className="absolute top-0 left-0 w-full h-full opacity-10">
-        <defs>
-          <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#1e3a8a" />
-            <stop offset="100%" stopColor="#10b981" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M0 100 Q 150 200 300 100 T 600 100 T 900 100 T 1200 100"
-          stroke="url(#techGradient)"
-          strokeWidth="2"
-          fill="transparent"
-        >
-          <animate
-            attributeName="d"
-            values="M0 100 Q 150 200 300 100 T 600 100 T 900 100 T 1200 100; 
-                    M0 150 Q 150 100 300 150 T 600 150 T 900 150 T 1200 150; 
-                    M0 100 Q 150 200 300 100 T 600 100 T 900 100 T 1200 100"
-            dur="5s"
-            repeatCount="indefinite"
-          />
-        </path>
-      </svg>
-
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0 opacity-50 animate-fadeIn">
-        <div
-          className="w-full h-full bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://source.unsplash.com/1600x900/?smart-home,technology')",
-          }}
-        ></div>
-      </div>
+    <div className="relative w-full min-h-screen text-white overflow-hidden bg-gradient-to-b from-navy-900 to-navy-700">
+      {/* Floating Icons in the Background */}
+      <ParticlesBackground className="animate-floatUp" />
 
       {/* Content */}
       <div className="relative z-10 px-6 py-16 text-center min-h-screen flex flex-col items-center justify-center">
@@ -101,7 +64,7 @@ function Home() {
                 to={category.link}
                 className={`flex items-center space-x-3 px-6 py-3 text-lg font-semibold text-white rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 hover:shadow-xl ${category.color}`}
               >
-                <category.icon className="text-2xl" />
+                {React.createElement(category.icon, { className: "text-2xl animate-floatUp" })}
                 <span>{category.name}</span>
               </Link>
             ))}
@@ -111,7 +74,7 @@ function Home() {
         {/* Why Choose Us */}
         <section>
           <h2 className="text-3xl font-bold text-white inline-flex items-center">
-            <FaStar className="mr-2 text-yellow-400 text-4xl" /> Why Choose Us?
+            <FaStar className="mr-2 text-yellow-400 text-4xl animate-floatUp" /> Why Choose Us?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
             {[
@@ -135,7 +98,7 @@ function Home() {
                 key={index}
                 className="w-80 border border-white bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex flex-col items-center text-center"
               >
-                <feature.icon className="text-4xl text-blue-400 mb-3" />
+                {React.createElement(feature.icon, { className: "text-4xl text-blue-400 mb-3 animate-floatUp" })}
                 <h3 className="text-xl font-semibold text-white">{feature.title}</h3>
                 <p className="text-gray-300 mt-2">{feature.desc}</p>
               </div>

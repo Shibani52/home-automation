@@ -13,22 +13,26 @@ html, body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* 🔵 Animated Grid Background (Dots Effect) */
-.technology-bg {
-  background: radial-gradient(circle, rgba(10, 25, 47, 0.8) 10%, rgba(2, 12, 27, 1) 100%);
-  background-size: 400% 400%;
-  animation: backgroundFlow 10s infinite alternate;
-}
-
-@keyframes backgroundFlow {
-  0% {
-    background-position: 0% 0%;
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh); /* Start way below the screen */
+    opacity: 0; /* Invisible at the start */
   }
-  100% {
-    background-position: 100% 100%;
+  to {
+    transform: translateY(-10vh); /* Move slightly above the screen */
+    opacity: 1; /* Fully visible */
   }
 }
 
+.floating-icon {
+  position: absolute;
+  animation: floatUp 10s linear infinite; /* Adjust speed here */
+}
+
+
+.animate-floatUpInfinite {
+  animation: floatUpInfinite linear infinite; /* Continuous looping */
+}
 
 /* Remove underlines from all links in all states */
 a, a:visited, a:hover, a:focus, a:active {
@@ -88,9 +92,10 @@ main {
   transform: translateY(0);
 }
 
+
 /* 🌟 Gradient Background */
 body {
-  background: linear-gradient(to bottom, #0f0a35, #3e3f86, #9e9eb9);
+  background: linear-gradient(to bottom, #040114, #0c0d4e, #5656a7);
   background-attachment: fixed;
   background-size: cover;
   width: 100%;
