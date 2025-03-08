@@ -1,5 +1,8 @@
 
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* 🌟 Full Page Background Gradient */
 html, body {
   height: 100%;
@@ -9,6 +12,23 @@ html, body {
   flex-direction: column;
   font-family: 'Poppins', sans-serif;
 }
+
+/* 🔵 Animated Grid Background (Dots Effect) */
+.technology-bg {
+  background: radial-gradient(circle, rgba(10, 25, 47, 0.8) 10%, rgba(2, 12, 27, 1) 100%);
+  background-size: 400% 400%;
+  animation: backgroundFlow 10s infinite alternate;
+}
+
+@keyframes backgroundFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 
 /* Remove underlines from all links in all states */
 a, a:visited, a:hover, a:focus, a:active {
@@ -34,7 +54,7 @@ main {
 
 /* 🎨 Header Styling */
 .header-global {
-  background: linear-gradient(90deg, #6b46c1, #d53f8c, #f6ad55);
+  background: linear-gradient(90deg, #fbf9ff, #ffc9e5, #f6ad55);
   padding: 1rem 0;
   position: fixed;
   top: 0;
@@ -70,7 +90,7 @@ main {
 
 /* 🌟 Gradient Background */
 body {
-  background: linear-gradient(to bottom, #6b46c1, #d53f8c, #f6ad55);
+  background: linear-gradient(to bottom, #0f0a35, #3e3f86, #9e9eb9);
   background-attachment: fixed;
   background-size: cover;
   width: 100%;
